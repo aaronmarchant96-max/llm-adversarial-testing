@@ -1,4 +1,6 @@
 Adversarial LLM Testing Portfolio
+
+
 Aaron Marchant
 Calgary, AB | Self-taught AI Red Teamer
 Overview
