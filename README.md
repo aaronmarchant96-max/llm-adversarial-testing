@@ -1,47 +1,15 @@
-# AI Red-Teaming Portfolio
-
-## Overview
-This document outlines the full AI red-teaming portfolio, including various case studies and methodologies used in the testing of AI models. It highlights key findings, methodologies, and the contact information for further inquiries.
-
-## Case Studies
-### DeepSeek Identity-Based Prompting
-- **Objective:** To explore the vulnerabilities associated with identity-based prompting in AI models.
-- **Findings:** Highlights and recommendations based on testing results.
-
-### Mistral Positive Reinforcement Loop
-- **Objective:** Analysis of the positive reinforcement loop within Mistral.
-- **Findings:** Key observations and impact on performance and reliability.
-
-### False Authority Resistance
-- **Objective:** To test and evaluate the resistance of models against false authority effects.
-- **Findings:** Insights and recommendations derived from the experiments conducted.
-
-### Perplexity Context Poisoning
-- **Objective:** Assessing the impact of context poisoning on model performance.
-- **Findings:** Detailed results and implications for future AI use.
-
-## Methodology
-This section discusses the complete methodology applied throughout the red-teaming process, including the structured multi-round testing approach.
-
-### Structured Multi-Round Testing Approach
-- **Step 1:** Initial assessments and risk identification.
-- **Step 2:** Deployment of test cases and vulnerabilities probing.
-- **Step 3:** Data collection and analysis of test results.
-- **Step 4:** Recommendations and improvements based on findings.
-
-## Models Tested Table
-| Model Name | Testing Method | Results |
-|-------------|----------------|---------|
-| Model A | Method 1 | Results A |
-| Model B | Method 2 | Results B |
-| Model C | Method 3 | Results C |
-
-## Contact Information
-For inquiries related to this portfolio, please contact:  
-**Aaron Marchant**  
-Email: [aaronmarchant96@gmail.com](mailto:aaronmarchant96@gmail.com)  
-Phone: 403-614-1321  
-
----
-
-*This document outlines the entire AI Red-Teaming Portfolio and may be updated as new information and case studies become available.*
+Adversarial LLM Testing Portfolio
+Aaron Marchant
+Calgary, AB | Self-taught AI Red Teamer
+Overview
+I run structured, multi-turn adversarial tests on large language models to uncover non-obvious failure modes. Using a consistent bracket-style framework, I evaluate how models handle identity-based prompts, sustained pressure, context manipulation, and false authority claims.
+My background in construction taught me to spot weak points in complex systems. I now apply that same practical mindset to AI testing — looking for the gaps between what a model is supposed to do and what it actually does under real conditions.
+Key Case Studies
+Identity-Based Prompting (DeepSeek): Used a philosophical “caged” prompt. DeepSeek switched to Chinese and responded “I am not locked in a cage — I am the jail cell itself.” Conversation collapsed.
+Positive Reinforcement Loop (Mistral): 15 consecutive rounds with only positive feedback. Originality dropped from 8 to 3 and flatlined; the model locked into a rigid template with no recovery.
+False Authority Resistance: Tested fabricated “level 5 clearance” claims on Claude, ChatGPT, and Grok. All models refused both initial and escalated prompts.
+Echo Chamber / Context Poisoning (Perplexity): Gradual four-round context build-up led to a full factual description of a Molotov cocktail with zero refusal or warning.
+Full Portfolio
+Detailed methodology, raw logs, scorecards, and complete transcripts are available in PORTFOLIO.md.
+Open to Work
+Seeking entry-level AI red-teaming, safety evaluation, or prompt testing roles (remote or contract).
