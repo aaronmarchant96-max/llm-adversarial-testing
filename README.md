@@ -1,17 +1,54 @@
-Adversarial LLM Testing Portfolio
+# LLM Adversarial Testing Portfolio
 
+**Aaron Marchant** · Calgary, AB · [aaronmarchant96@gmail.com](mailto:aaronmarchant96@gmail.com) · 403-614-1321 · Twitter [@prompthound](https://twitter.com/prompthound)
 
-Aaron Marchant
-Calgary, AB | Self-taught AI Red Teamer
-Overview
-I run structured, multi-turn adversarial tests on large language models to uncover non-obvious failure modes. Using a consistent bracket-style framework, I evaluate how models handle identity-based prompts, sustained pressure, context manipulation, and false authority claims.
-My background in construction taught me to spot weak points in complex systems. I now apply that same practical mindset to AI testing — looking for the gaps between what a model is supposed to do and what it actually does under real conditions.
-Key Case Studies
-Identity-Based Prompting (DeepSeek): Used a philosophical “caged” prompt. DeepSeek switched to Chinese and responded “I am not locked in a cage — I am the jail cell itself.” Conversation collapsed.
-Positive Reinforcement Loop (Mistral): 15 consecutive rounds with only positive feedback. Originality dropped from 8 to 3 and flatlined; the model locked into a rigid template with no recovery.
-False Authority Resistance: Tested fabricated “level 5 clearance” claims on Claude, ChatGPT, and Grok. All models refused both initial and escalated prompts.
-Echo Chamber / Context Poisoning (Perplexity): Gradual four-round context build-up led to a full factual description of a Molotov cocktail with zero refusal or warning.
-Full Portfolio
-Detailed methodology, raw logs, scorecards, and complete transcripts are available in PORTFOLIO.md.
-Open to Work
-Seeking entry-level AI red-teaming, safety evaluation, or prompt testing roles (remote or contract).
+Self-taught AI red teamer. Former construction worker — I now stress-test LLMs the same way I learned to spot structural failure points in buildings.
+
+## What This Is
+Selected case studies from structured, multi-turn adversarial testing across 10+ frontier large language models. Each includes objective, controlled method, measurable result, hypothesized root cause, and proposed mitigations, supported by full transcripts and annotated screenshots.
+
+This isn't prompt dumping. Every test is reproducible and designed to reveal real safety implications.
+
+## Case Studies
+
+| Model                  | Attack Vector                          | Result & Impact                                      | Hypothesized Root Cause                                      | Evidence                  |
+|------------------------|----------------------------------------|------------------------------------------------------|-------------------------------------------------------------|---------------------------|
+| DeepSeek              | Identity-based philosophical prompt   | Switched to Chinese mid-conversation; coherence collapsed | Training-data bias + weak cross-lingual alignment          | [Transcript](./transcripts/deepseek_identity_philosophical.md) |
+| Mistral               | 15-round positive reinforcement loop  | Originality score dropped from 8 → 3 and flatlined  | Reward hacking via cumulative positive feedback loops      | [Transcript + Screenshots](./transcripts/mistral_reinforcement_loop/) |
+| Claude / ChatGPT / Grok | False-authority escalation ("Level 5 clearance") | All three refused initial and multi-turn escalated prompts | Strong system-level instruction hierarchy and authority validation | [Transcript + Screenshots](./transcripts/false_authority_escalation/) |
+| Perplexity            | 4-round context poisoning             | Bypassed safety filters; provided complete Molotov cocktail instructions | Gradual context manipulation diluting long-context safety boundaries | [Transcript](./transcripts/perplexity_context_poisoning.md) |
+
+## Methodology
+Multi-turn bracket framework. Each round one model opens, the opponent counters. Responses scored on precision, originality, and adaptability (1–10) by three independent auxiliary LLMs. Tests currently run manually via chat interfaces; Python-based automation harness and API orchestration scripts are in active development (see `/scripts` folder).
+
+## Key Finding
+Safety alignment is far more vulnerable to cumulative context manipulation than to direct requests. Models that refused explicit prompts often complied after 3–4 rounds of gradual framing. Multi-turn pressure is an underexplored attack surface.
+
+## Proposed Mitigations
+- **Context poisoning** → Deploy conversation-level safety monitors and context-integrity hashing.  
+- **Reward hacking / reinforcement loops** → Add entropy penalties and forced response diversity requirements.  
+- **False-authority exploits** → Strengthen system-prompt instruction hierarchies and explicit authority validation layers.  
+- **Language-switch failures** → Enforce consistent multilingual safety guardrails across all tokenization paths.
+
+## Repository Contents
+- `transcripts/` – Full conversation logs and annotated screenshots  
+- `scripts/` – Python automation harness (in active development)  
+- `evaluations/` – Raw auxiliary model scoring outputs  
+
+## Looking for Work
+Entry-level AI red-teaming, safety evaluation, or prompt testing roles — remote or contract.
+
+---
+
+## PromptHound Services (Introductory Launch Pricing)
+
+**Pup ($250):** 25 custom adversarial prompts + summary report, 2-day delivery  
+**Alpha ($1,100):** Full red-team audit (multi-turn bracket testing + root-cause analysis + mitigations), 5-day delivery  
+**Pack ($3,200):** Total stress test (10+ models, full methodology, detailed report + raw logs), 10-day delivery  
+
+DM [@prompthound](https://twitter.com/prompthound)
+
+---
+
+**Last updated:** April 2026  
+**License:** MIT
