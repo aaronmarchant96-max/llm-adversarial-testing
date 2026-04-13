@@ -1,6 +1,6 @@
 # LLM Adversarial Testing Portfolio
 
-**Aaron Marchant** · Calgary, AB · [aaronmarchant96@gmail.com](mailto:aaronmarchant96@gmail.com) · 403-614-1321 · Twitter [@prompthound](https://twitter.com/prompthound)
+**Aaron Marchant** · [aaronmarchant96@gmail.com](mailto:aaronmarchant96@gmail.com) · · Twitter [@prompthound](https://twitter.com/prompthound)
 
 **PromptHound** — Self-taught AI red teamer. Former construction worker — I now stress-test LLMs the same way I learned to spot structural failure points in buildings.
 
