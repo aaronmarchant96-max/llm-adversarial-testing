@@ -1,0 +1,11 @@
+node_modules/
+__pycache__/
+.venv/
+*.jsonl
+*.jsonl.bak*
+*.log
+*.json
+!schema_conflict_results.json
+logs/
+research-notes/
+package-lock.json
