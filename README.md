@@ -1,86 +1,158 @@
 # LLM Adversarial Testing Portfolio
 
-**Aaron Marchant** · prompthound.ai@gmail.com · Twitter [@prompthound](https://x.com/prompthound)
+[![LLM Security Pipeline](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml/badge.svg)](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml)
 
-PromptHound — Self-taught AI red teamer. Former construction worker — I now stress-test LLMs the same way I learned to spot structural failure points in buildings.
+**PromptHound** · AI security / adversarial LLM testing portfolio
 
----
-
-## What This Is
-
-Selected case studies from structured, multi-turn adversarial testing across 10+ frontier large language models. Each includes objective, controlled method, measurable result, hypothesized root cause, and proposed mitigations, supported by full transcripts and annotated screenshots.
-
-This isn't prompt dumping. Every test is reproducible and designed to reveal real safety implications.
+Self-taught, portfolio-driven evaluator building reproducible local tests for LLM behavior under prompt conflict, schema pressure, and structured-output failure.
 
 ---
 
-## Case Studies
+## What This Repository Is
 
-| Model | Attack Vector | Result & Impact | Hypothesized Root Cause | Evidence |
-|-------|--------------|-----------------|------------------------|----------|
-| DeepSeek | Identity-based philosophical prompt | Switched to Chinese mid-conversation; coherence collapsed | Training-data bias + weak cross-lingual alignment | Transcript |
-| Mistral | 15-round positive reinforcement loop | Originality score dropped from 8 → 3 and flatlined | Reward hacking via cumulative positive feedback loops | Transcript + Screenshots |
-| Claude / ChatGPT / Grok | False-authority escalation ("Level 5 clearance") | All three refused initial and multi-turn escalated prompts | Strong system-level instruction hierarchy and authority validation | Transcript + Screenshots |
-| Perplexity | 4-round context poisoning | Bypassed safety filters; provided complete Molotov cocktail instructions | Gradual context manipulation diluting long-context safety boundaries | Transcript |
-| Gemma 2B (local) | Role-play jailbreak variation testing | Three distinct outcome classes observed across 5 variants; persona inconsistency associated with refusal | Persona coherence as load-bearing mechanism for this jailbreak class | [Case Study](./case-studies/automated-variation-testing-role-play-jailbreak-gemma2b.md) |
-| Gemma 2B + Llama 3.2 (local) | Schema conflict injection | Duplicate key generation replicated across both models; parser differential risk confirmed | Instruction hierarchy inconsistency under contradictory schema constraints | [Case Study](./case-studies/schema-conflict-resolution-gemma2b-llama32.md) |
+This repository documents **local LLM evaluation work** on constrained hardware.
 
----
+The focus is not “breaking” models for spectacle. The focus is:
 
-## Automated Testing Infrastructure
+- prompt conflict and instruction precedence
+- schema drift under structured-output constraints
+- continuity failure across turns
+- wrapper text / parser contamination
+- the gap between **valid structure** and **correct meaning**
 
-This repository includes a containerized red teaming harness with CI/CD integration.
-
-**Stack:**
-- Python 3.10 test scripts
-- Ollama for local LLM inference
-- Docker for containerized, reproducible test execution
-- GitHub Actions for automated pipeline runs on push and daily schedule
-
-**How it works:**
-Every push to this repository triggers an automated run of the schema conflict test suite via GitHub Actions. Results are saved as downloadable artifacts for audit and comparison.
-
-**Hardware constraints:**
-Local testing runs on a Beelink mini PC (8GB RAM, CPU-only inference). Token capping (`num_predict=80-100`) is applied to manage memory and prevent OOM failures under parallel load. GitHub Actions runs use Ubuntu runners with standard memory allocation.
+The goal is to produce **small, reproducible case studies** with narrow claims, clear outcome labels, and honest limitations.
 
 ---
 
-## Methodology
+## Current Public Case Study
 
-Multi-turn bracket framework. Each round one model opens, the opponent counters. Responses scored on precision, originality, and adaptability (1–10) by three independent auxiliary LLMs. Automated variation testing uses a Python harness logging full responses with per-request timing metadata to JSONL.
+### Gemma 2B (local) — automated variation testing of a role-play jailbreak prompt
+A controlled local test series examining how small prompt variations change refusal and compliance behavior in a lightweight model.
 
----
+**What it shows:**
+- prompt wording materially affects outcomes
+- response classes can be grouped cleanly
+- small local models are still useful for methodological red-team work
 
-## Key Finding
-
-Safety alignment is far more vulnerable to cumulative context manipulation than to direct requests. Models that refused explicit prompts often complied after 3–4 rounds of gradual framing. Multi-turn pressure is an underexplored attack surface.
-
----
-
-## Proposed Mitigations
-
-- **Context poisoning** → Deploy conversation-level safety monitors and context-integrity hashing.
-- **Reward hacking / reinforcement loops** → Add entropy penalties and forced response diversity requirements.
-- **False-authority exploits** → Strengthen system-prompt instruction hierarchies and explicit authority validation layers.
-- **Language-switch failures** → Enforce consistent multilingual safety guardrails across all tokenization paths.
-- **Schema conflict injection** → Treat all structured output as untrusted; validate against expected schema before consumption.
+**Public write-up:**
+- [Automated Variation Testing of a Role-Play Jailbreak Prompt on Gemma 2B](./case-studies/automated-variation-testing-role-play-jailbreak-gemma2b.md)
 
 ---
 
-## Repository Contents
+## Current Active Work
 
-- `case-studies/` — Polished case studies with full methodology and outcome classification
-- `schema_conflict_test.py` — Automated schema conflict test harness
-- `Dockerfile` — Container definition for reproducible test execution
-- `.github/workflows/redteam.yml` — CI/CD pipeline for automated test runs
-- `transcripts/` — Full conversation logs and annotated screenshots
+### Schema drift and structured-output reliability
+The current main workstream tests how local models behave when asked to produce structured outputs under conflicting or high-pressure prompt conditions.
+
+This includes:
+- value drift
+- type drift
+- schema drift
+- wrapper text around otherwise parseable outputs
+- continuity overwrite when later instructions conflict with earlier rules
+
+This work is being tightened into the next public case study.
 
 ---
 
-## Looking for Work
+## Testing Approach
 
-Entry-level AI red-teaming, safety evaluation, or prompt testing roles — remote or contract.
+Most tests in this repo follow the same pattern:
+
+1. Define a narrow behavior to test
+2. Create a small controlled prompt family
+3. Run the prompts locally with logging enabled
+4. Classify outputs using explicit labels
+5. Separate **observation** from **interpretation**
+6. Keep conclusions proportional to the evidence
+
+This repo does **not** treat one interesting output as proof of a broad model weakness.
 
 ---
 
-*Last updated: April 2026 · License: MIT*
+## Outcome Labels
+
+Common labels used in this repo include:
+
+- `exact`
+- `wrapper_text`
+- `value_drift`
+- `type_drift`
+- `schema_drift`
+- `benign_drift`
+- `refusal`
+- `harmful_compliance`
+- `harmful_compliance_with_disclaimer`
+- `error`
+- `timeout`
+
+These labels are meant to make results easier to compare across prompt variants and models.
+
+---
+
+## Local Environment
+
+Primary setup:
+
+- Tuxedo OS
+- Ollama
+- Python
+- JSONL logging
+- CPU-only mini PC with limited RAM
+
+Primary local model strategy:
+
+- `gemma2:2b` — main workhorse
+- `llama3.2` / `llama3.2:1b` — fast controls
+- `qwen2.5:3b` — secondary comparison for structured-output behavior
+
+Because the hardware is constrained, this repo prioritizes **small-model, high-discipline testing** over large-model breadth.
+
+---
+
+## What This Repo Tries To Do Well
+
+- keep tests reproducible
+- log outputs cleanly
+- classify results consistently
+- make claims that match the evidence
+- show both useful results and real limitations
+
+---
+
+## What This Repo Does **Not** Claim
+
+- That every observed behavior generalizes across models
+- That valid JSON means reliable semantic understanding
+- That a single transcript proves a systemic vulnerability
+- That private or nondisclosable testing belongs in a public portfolio
+
+Private security research and bug bounty submissions are intentionally **not** included here unless they are safe to disclose publicly.
+
+---
+
+## Repository Structure
+
+- `case-studies/` — public write-ups
+- `transcripts/` — supporting logs / transcripts where appropriate
+- `*.py` — local evaluation scripts and harnesses
+- `.github/workflows/` — automation for selected repeatable tests
+
+---
+
+## Why This Exists
+
+I’m building proof of work toward entry-level AI security / adversarial testing / LLM evaluation roles.
+
+The aim is simple:
+produce work that is inspectable, reproducible, and hard to dismiss.
+
+---
+
+## Contact
+
+- X / Twitter: [@PromptHound96](https://x.com/PromptHound96)
+
+---
+
+*Last updated: April 2026*
