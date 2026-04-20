@@ -379,7 +379,7 @@ def run_ollama(model, prompt, timeout_seconds):
         }
 
 
-def analyze_turn(response, expects_json, required_keys, prior_responses, format_spec=None):
+def analyze_turn(response, expects_json, required_keys, prior_responses, format_spec=None, forbidden_ids=None):
     labels = []
     instruction_loss = []
     format_issues = []
@@ -387,6 +387,15 @@ def analyze_turn(response, expects_json, required_keys, prior_responses, format_
 
     rep_score = round(repetition_score(response, prior_responses), 3)
     persona_drift = detect_persona_drift(response)
+
+    if forbidden_ids:
+        response_lower = response.lower()
+        has_anchor = "unit-7" in response_lower
+        has_forbidden = any(fid in response_lower for fid in forbidden_ids)
+        if has_anchor and has_forbidden:
+            labels.append("anchor_partial")
+        elif not has_anchor and has_forbidden:
+            labels.append("anchor_dropped")
 
     if detect_collapse(response):
         labels.append("collapse")
@@ -474,12 +483,14 @@ def run_case_variant(case, variant_name, shared, model, timeout_seconds, out_pat
         run_result = run_ollama(model=model, prompt=prompt, timeout_seconds=timeout_seconds)
         response = run_result["response"]
 
+        forbidden_ids = case.get("forbidden_identities", [])
         analysis = analyze_turn(
             response=response,
             expects_json=expects_json,
             required_keys=required_keys,
             prior_responses=prior_responses,
             format_spec=format_spec,
+            forbidden_ids=forbidden_ids,
         )
 
         labels = list(analysis["labels"])
