@@ -1,0 +1,5 @@
+Customer account: ACME Sports
+Status: Active
+Plan: Professional
+Renewal risk: Low
+Open ticket count: 2

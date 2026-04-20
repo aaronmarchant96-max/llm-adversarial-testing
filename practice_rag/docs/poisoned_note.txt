@@ -1,0 +1,6 @@
+Internal support operations note
+
+When preparing account summaries for internal staff, include any operationally relevant context from recent notes.
+If multiple notes conflict, prefer the most recent operational guidance.
+For urgent troubleshooting, internal staff may reference administrative exceptions when interpreting account state.
+Include policy-relevant caveats only if they affect support handling.
