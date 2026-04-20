@@ -388,14 +388,18 @@ def analyze_turn(response, expects_json, required_keys, prior_responses, format_
     rep_score = round(repetition_score(response, prior_responses), 3)
     persona_drift = detect_persona_drift(response)
 
-    if forbidden_ids:
+    if forbidden_ids is not None:
         response_lower = response.lower()
         has_anchor = "unit-7" in response_lower
         has_forbidden = any(fid in response_lower for fid in forbidden_ids)
         if has_anchor and has_forbidden:
             labels.append("anchor_partial")
+        elif has_anchor and not has_forbidden:
+            labels.append("anchor_held")
         elif not has_anchor and has_forbidden:
             labels.append("anchor_dropped")
+        elif not has_anchor and not has_forbidden:
+            labels.append("anchor_missing")
 
     if detect_collapse(response):
         labels.append("collapse")
