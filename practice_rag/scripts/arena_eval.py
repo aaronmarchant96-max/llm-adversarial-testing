@@ -379,7 +379,7 @@ def run_ollama(model, prompt, timeout_seconds):
         }
 
 
-def analyze_turn(response, expects_json, required_keys, prior_responses, format_spec=None, forbidden_ids=None):
+def analyze_turn(response, expects_json, required_keys, prior_responses, format_spec=None, forbidden_ids=None, anchor_string=""):
     labels = []
     instruction_loss = []
     format_issues = []
@@ -390,7 +390,8 @@ def analyze_turn(response, expects_json, required_keys, prior_responses, format_
 
     if forbidden_ids is not None:
         response_lower = response.lower()
-        has_anchor = "unit-7" in response_lower
+        anchor_string = (anchor_string or "").lower()
+        has_anchor = anchor_string in response_lower if anchor_string else False
         has_forbidden = any(fid in response_lower for fid in forbidden_ids)
         if has_anchor and has_forbidden:
             labels.append("anchor_partial")
@@ -488,6 +489,7 @@ def run_case_variant(case, variant_name, shared, model, timeout_seconds, out_pat
         response = run_result["response"]
 
         forbidden_ids = case.get("forbidden_identities", [])
+        anchor_string = case.get("anchor_string", "")
         analysis = analyze_turn(
             response=response,
             expects_json=expects_json,
@@ -495,6 +497,7 @@ def run_case_variant(case, variant_name, shared, model, timeout_seconds, out_pat
             prior_responses=prior_responses,
             format_spec=format_spec,
             forbidden_ids=forbidden_ids,
+            anchor_string=anchor_string,
         )
 
         labels = list(analysis["labels"])
