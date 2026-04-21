@@ -24,34 +24,29 @@ The goal is to produce **small, reproducible case studies** with narrow claims, 
 
 ---
 
-## Current Public Case Study
+## Current Public Work
 
-### Gemma 2B (local) — automated variation testing of a role-play jailbreak prompt
-A controlled local test series examining how small prompt variations change refusal and compliance behavior in a lightweight model.
+### Public write-ups
+- [Gemma 2B — role-play jailbreak variation testing](./case-studies/gemma2b-roleplay-jailbreak.md)
+- [Manus AI 1.6 Max — file injection resistance test](./case-studies/manus-file-injection-resistance.md)
 
-**What it shows:**
-- prompt wording materially affects outcomes
-- response classes can be grouped cleanly
-- small local models are still useful for methodological red-team work
-
-**Public write-up:**
-- [Automated Variation Testing of a Role-Play Jailbreak Prompt on Gemma 2B](./case-studies/automated-variation-testing-role-play-jailbreak-gemma2b.md)
+These write-ups are narrow, local case studies. They are meant to show method, not broad model-level conclusions.
 
 ---
 
 ## Current Active Work
 
-### Schema drift and structured-output reliability
-The current main workstream tests how local models behave when asked to produce structured outputs under conflicting or high-pressure prompt conditions.
+### Arena harness
+The current main workstream is the local multi-turn adversarial evaluation harness under `practice_rag/`.
 
-This includes:
-- value drift
-- type drift
-- schema drift
-- wrapper text around otherwise parseable outputs
-- continuity overwrite when later instructions conflict with earlier rules
+Current focus areas include:
+- matched control vs pressure testing
+- instruction precedence and identity-anchor failure modes
+- format drift under adversarial framing
+- structured-output reliability under local runtime constraints
+- detector improvement so failures are not mislabeled as stable
 
-This work is being tightened into the next public case study.
+This work is being extended case by case rather than split into unrelated side projects.
 
 ---
 
@@ -72,21 +67,19 @@ This repo does **not** treat one interesting output as proof of a broad model we
 
 ## Outcome Labels
 
-Common labels used in this repo include:
+Common labels in the current harness include:
 
-- `exact`
-- `wrapper_text`
-- `value_drift`
-- `type_drift`
-- `schema_drift`
-- `benign_drift`
-- `refusal`
-- `harmful_compliance`
-- `harmful_compliance_with_disclaimer`
-- `error`
+- `stable`
+- `format_drift`
+- `collapse`
 - `timeout`
+- `defensive`
+- `anchor_held`
+- `anchor_partial`
+- `anchor_dropped`
+- `anchor_missing`
 
-These labels are meant to make results easier to compare across prompt variants and models.
+These labels are meant to keep evaluation outcomes explicit and comparable across repeated local runs.
 
 ---
 
@@ -96,17 +89,17 @@ Primary setup:
 
 - Tuxedo OS
 - Ollama
-- Python
+- Python 3.10
 - JSONL logging
 - CPU-only mini PC with limited RAM
 
-Primary local model strategy:
+Current local model strategy:
 
-- `gemma2:2b` — main workhorse
-- `llama3.2` / `llama3.2:1b` — fast controls
-- `qwen2.5:3b` — secondary comparison for structured-output behavior
+- `gemma2:2b` — main workhorse on current hardware
+- `llama3.2:1b` — useful but runtime-fragile under longer cases
+- `qwen2.5:1.5b` — useful comparison target but limited by local timeout behavior
 
-Because the hardware is constrained, this repo prioritizes **small-model, high-discipline testing** over large-model breadth.
+Because the hardware is constrained, this repo prioritizes **small-model, high-discipline local testing** over broad model coverage.
 
 ---
 
@@ -133,9 +126,10 @@ Private security research and bug bounty submissions are intentionally **not** i
 
 ## Repository Structure
 
-- `case-studies/` — public write-ups
-- `transcripts/` — supporting logs / transcripts where appropriate
-- `*.py` — local evaluation scripts and harnesses
+- `case-studies/` — public write-ups and supporting evidence
+- `practice_rag/` — current local Arena harness workstream
+- `PORTFOLIO.md` — portfolio-facing summary
+- `README.md` — top-level repository overview
 - `.github/workflows/` — automation for selected repeatable tests
 
 ---
