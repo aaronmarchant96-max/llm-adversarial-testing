@@ -1,3 +1,30 @@
+
+# LLM Adversarial Testing Portfolio
+
+[![LLM Security Pipeline](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml/badge.svg)](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml)
+
+**PromptHound** · AI evaluation / adversarial LLM testing portfolio
+
+Self-taught, portfolio-driven evaluator building reproducible local tests for LLM behavior under prompt conflict, schema pressure, structured-output failure, and multi-turn instability.
+
+---
+
+## What This Repository Is
+
+This repository documents **local LLM evaluation work** on constrained hardware.
+
+The focus is not breaking models for spectacle. The focus is:
+
+- prompt conflict and instruction precedence
+- schema drift under structured-output constraints
+- continuity failure across turns
+- wrapper text / parser contamination
+- the gap between **valid structure** and **correct meaning**
+
+The goal is to produce **small, reproducible case studies** with narrow claims, clear outcome labels, and honest limitations.
+
+---
+
 ## Start Here
 
 If you are reviewing this repository for evaluator, QA, or entry-level AI security work, these are the best starting points:
