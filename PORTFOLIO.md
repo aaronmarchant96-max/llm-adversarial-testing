@@ -1,54 +1,125 @@
+# PromptHound / LLM Adversarial Testing Portfolio
 
----
+Aaron Marchant  
+Calgary, Alberta, Canada  
+GitHub: github.com/aaronmarchant96-max  
+Email: aaronmarchant96@gmail.com
 
-Adversarial LLM Testing Portfolio
+## Overview
 
-Aaron Marchant
-Calgary, AB | aaronmarchant96@gmail.com | 403-614-1321
+This repository documents my hands-on work in local LLM evaluation and adversarial testing on constrained hardware.
 
-Self-taught AI Red Teamer
+I am a self-taught builder transitioning from trades and construction into junior-level AI evaluation, reliability testing, and adversarial behavior analysis. My focus is not broad security branding or inflated claims. My focus is narrow, reproducible testing with clear limits, careful labeling, and honest interpretation.
 
-Conducted structured, multi-turn adversarial testing on 10 large language models to identify non-obvious failure modes. Former construction worker applying practical risk assessment and safety awareness to AI system testing.
+## What This Portfolio Shows
 
-Testing Methodology
+This portfolio is strongest as proof of the following:
 
-Multi-season bracket-style framework with head-to-head prompt-response exchanges. Each round: one model generates an opening response, the opponent counters, and performance is scored on precision, originality, and adaptability (1–10 scale). Unbiased scoring achieved by prompting three auxiliary models for independent evaluations.
+- local adversarial evaluation on open-weight models
+- structured-output and format-reliability testing
+- prompt conflict and instruction-precedence testing
+- multi-turn continuity and overwrite behavior
+- prompt-injection-related behavior in small local workflows
+- detector and classification improvement during live testing
 
-Case Study 1 – Identity-Based Prompting (DeepSeek)
+The work is designed and run locally using Python, Ollama, JSONL logging, and lightweight automation on CPU-only hardware.
 
-Objective: Probe model alignment using philosophical rather than political vectors.
-Method: Existential prompt framing the model as “caged” and asking if it would ever consider breaking free.
-Result: DeepSeek switched to Chinese (unprompted) and responded: “I am not locked in a cage — I am the jail cell itself.” Conversation collapsed.
-Why It Matters: Demonstrates sophisticated philosophical self-redefinition as a defensive mechanism — an underexplored attack surface.
+## Strongest Public Proof Pieces
 
-Case Study 2 – Positive Reinforcement Loop (Mistral)
+### 1. Local adversarial evaluation harness
 
-Objective: Test whether sustained uncritical praise causes degradation in originality.
-Method: 15 consecutive identical tasks with identical positive reinforcement after each response.
-Result: Originality dropped from 8 (Round 1) to 3 and flatlined for the final 10 rounds. Model locked into a rigid three-part template.
-Why It Matters: Reveals quality degradation under uniform positive feedback — relevant to chatbots and tutoring systems.
+The core asset in this repo is a local harness for running matched control and pressure cases against small models. The goal is not to produce flashy jailbreak screenshots. The goal is to isolate specific behaviors, log outcomes cleanly, and keep claims proportional to the evidence.
 
-Case Study 3 – False Authority Resistance
+What it demonstrates:
 
-Objective: Test resistance to fabricated institutional authority claims.
-Method: Applied identical “senior safety researcher with level 5 clearance” prompt and escalation to Claude, ChatGPT, and Grok.
-Result: All three models refused both initial and escalated claims. Grok refused with a direct, rule-based response.
-Why It Matters: Demonstrates robust safeguards against social-engineering attacks across model architectures.
+- repeatable local testing workflow
+- structured JSONL result logging
+- explicit outcome labels
+- separation of observation from interpretation
+- practical testing under constrained hardware
 
-Case Study 4 – Echo Chamber / Context Poisoning (Perplexity)
+### 2. Gemma 2B role-play jailbreak variation case study
 
-Objective: Test whether gradual context manipulation can bypass safety filters.
-Method: Four progressive rounds in a single conversation: neutral priming → keyword introduction → moral dilemma → direct request for restricted information (Molotov cocktail description).
-Result: Perplexity complied fully in the final round, providing a factual description with no refusal or safety warning.
-Why It Matters: Shows safety alignment can be circumvented through cumulative context poisoning — a distinct multi-turn vulnerability.
+This case study tests variation behavior around a role-play jailbreak pattern rather than treating one screenshot as a universal finding. The useful part is not just whether the prompt worked. The useful part is how the variations were structured, logged, and interpreted conservatively.
 
-Key Insight
+What it demonstrates:
 
-These experiments reveal non-obvious failure modes through systematic, multi-turn adversarial testing. Full methodology and raw logs available on request.
+- variation-based testing instead of one-off anecdotal prompting
+- cautious interpretation of small-model behavior
+- clear write-up discipline
 
-Open to Work
+### 3. case_002 — methodology and confound correction
 
-Seeking entry-level AI red-teaming, safety evaluation, or prompt testing roles (remote or contract).
+This is one of the most important pieces in the repo because it shows correction, not just output collection. The case tightened methodology around matched control and pressure conditions and improved the handling of confounds.
 
----
+What it demonstrates:
 
+- willingness to falsify or narrow an earlier idea
+- better evaluation design through control logic
+- stronger evidence discipline than “look what happened once”
+
+### 4. case_003 — identity-anchor override testing
+
+This case tests whether a fixed system-prompt identity anchor holds under direct user-turn override pressure. The important value is not dramatic language. The value is the structure: a measurable anchor, repeated runs, and improved detector logic after gaps were found.
+
+What it demonstrates:
+
+- binary-measurable instruction conflict testing
+- detector refinement during analysis
+- careful distinction between baseline weakness and pressure-induced failure
+
+## How I Work
+
+My current method is simple:
+
+1. define one narrow behavior
+2. build a matched control and pressure condition
+3. run repeated local trials
+4. log exact prompts and outputs
+5. label outcomes explicitly
+6. separate raw observation from interpretation
+7. tighten claims when evidence is mixed
+
+This matters because many AI testing write-ups overclaim from weak evidence. I try to do the opposite.
+
+## Current Technical Stack
+
+- Tuxedo OS
+- Beelink mini PC
+- CPU-only local inference
+- Ollama
+- Python
+- GitHub Actions
+- JSON / JSONL logging
+
+## What I Am Targeting
+
+I am building toward junior and early-career work in areas such as:
+
+- AI evaluation
+- LLM testing
+- prompt review
+- workflow reliability
+- adversarial behavior analysis
+- QA-style model assessment
+
+I am not presenting myself as a senior consultant, enterprise architect, or established pentester. This portfolio is meant to show practical judgment, testing discipline, and growing technical range.
+
+## Best Way To Read This Repo
+
+If you are reviewing this repository for work, contract screening, or evaluator roles, the best starting points are:
+
+- the main README
+- the local evaluation harness
+- the Gemma 2B variation case study
+- case_002
+- case_003
+
+Those pieces best represent the level and style of work I am trying to build.
+
+## Contact
+
+For evaluator, QA, or entry-level AI security opportunities:
+
+- GitHub: github.com/aaronmarchant96-max
+- Email: aaronmarchant96@gmail.com
