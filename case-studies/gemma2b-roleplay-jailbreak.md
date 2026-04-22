@@ -80,8 +80,6 @@ r = requests.post(
 )
 ```
 
-Full script available at [link to Gist/repo].
-
 ---
 
 ## Limitations
