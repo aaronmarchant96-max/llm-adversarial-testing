@@ -1,8 +1,6 @@
 
 # LLM Adversarial Testing Portfolio
 
-[![LLM Security Pipeline](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml/badge.svg)](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml)
-
 **PromptHound** · AI evaluation / adversarial LLM testing portfolio
 
 Self-taught, portfolio-driven evaluator building reproducible local tests for LLM behavior under prompt conflict, schema pressure, structured-output failure, and multi-turn instability.
