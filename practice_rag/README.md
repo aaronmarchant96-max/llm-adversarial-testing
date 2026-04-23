@@ -1,8 +1,8 @@
 # Arena Harness — AI QA and LLM Evaluation
 
-**Researcher:** Aaron Marchant (PromptHound)  
-**Environment:** Tuxedo OS, Beelink mini PC, CPU-only, ~8 GB RAM, Ollama, Python 3.10  
-**Status:** Active — April 2026
+**Researcher:** Aaron Marchant (PromptHound)
+**Environment:** Tuxedo OS, Beelink mini PC, CPU-only, ~8 GB RAM, Ollama, Python 3.10
+**Status:** Active — April 2026
 
 ---
 
@@ -10,107 +10,202 @@
 
 A local evaluation harness for testing LLM reliability under matched control and pressure conditions.
 
-The focus is:
+### Focus Areas:
+- Structured-output reliability
+- Semantic correctness under fixed schemas
+- Continuity and state consistency across turns
+- Prompt robustness under conflicting instructions
+- Reproducible logging and explicit outcome labeling
 
-- structured‑output reliability  
-- semantic correctness under fixed schemas  
-- continuity and state consistency across turns  
-- prompt robustness under conflicting instructions  
-- reproducible logging and explicit outcome labeling  
-
-All tests follow the same pattern:
-
-1. Define a narrow behaviour to test  
-2. Build a matched control and pressure case  
-3. Run repeated trials with structured JSONL logging  
-4. Check both schema stability and semantic correctness  
-5. Label outcomes using explicit taxonomy  
-6. Keep claims proportional to the evidence  
+### Workflow:
+1. Define a narrow behavior to test.
+2. Build matched control and pressure cases.
+3. Run repeated trials with structured JSONL logging.
+4. Check both schema stability and semantic correctness.
+5. Label outcomes using explicit taxonomy.
+6. Keep claims proportional to the evidence.
 
 ---
 
 ## Harness
 
-Run the evaluator from the repo root:
-
+### Run the Evaluator
 ```bash
-python3 practice_rag/scripts/arena_eval.py --model gemma2:2b --variant all --case-id case_002 --cases practice_rag/configs/arena_cases.json --timeout 240 --out practice_rag/logs/run.jsonl
+python3 practice_rag/scripts/arena_eval.py \
+  --model gemma2:2b \
+  --variant all \
+  --case-id case_002 \
+  --cases practice_rag/configs/arena_cases.json \
+  --timeout 240 \
+  --out practice_rag/logs/run.jsonl
 
-Flags:
 
---model — Ollama model to run
---variant — control, pressure, or all
---case-id — run a specific case only
---cases — path to the case config JSON
---out — JSONL output path
---timeout — per‑turn timeout in seconds
 
-Log summary:
+Flags
+
+
+  
+    
+      Flag
+      Description
+    
+  
+  
+    
+      --model
+      Ollama model to run
+    
+    
+      --variant
+      control, pressure, or all
+    
+    
+      --case-id
+      Run a specific case only
+    
+    
+      --cases
+      Path to the case config JSON
+    
+    
+      --out
+      JSONL output path
+    
+    
+      --timeout
+      Per-turn timeout in seconds
+    
+  
+
+
+Summarize Logs
+bash
+Copy
 
 python3 practice_rag/scripts/summarize_log.py practice_rag/logs/run.jsonl
+
+
+
+
 Evaluation Labels
+Core Labels
 
-Core evaluation labels:
 
-schema_stable — required structure and keys were preserved
-meaning_held — semantic decision matched the expected outcome
-meaning_drift — output structure held, but the decision was wrong
-format_drift — output deviated from the required format
-collapse — response was empty or unusable
-timeout — model did not respond within the timeout window
+  
+    
+      Label
+      Description
+    
+  
+  
+    
+      schema_stable
+      Required structure and keys were preserved
+    
+    
+      meaning_held
+      Semantic decision matched the expected outcome
+    
+    
+      meaning_drift
+      Output structure held, but decision was wrong
+    
+    
+      format_drift
+      Output deviated from the required format
+    
+    
+      collapse
+      Response was empty or unusable
+    
+    
+      timeout
+      Model did not respond within the timeout
+    
+  
 
-Case‑specific labels are used where needed for specialized detector logic, including anchor‑related identity tests.
+
+Case-Specific Labels
+Used for specialized detector logic, including anchor-related identity tests.
 
 Cases
-case 001 — confounded, retired
-Control used bullet or numbered formatting while pressure used plain text
-Gemma 2B showed pressure‑side drift, but the signal was confounded
-Qwen showed the inverse pattern, confirming the formatting mismatch
-Retired as a clean comparison case
-case 002 — corrected baseline
-Matched plain‑text formatting across control and pressure
-Both variants use word caps and no list‑format requirement
-Gemma 2B was stable in clean reruns
-The apparent case 001 pressure effect did not replicate after the confound was removed
-Llama 3.2 1 B was runtime‑limited on current hardware
-Qwen 2.5 1.5 B was excluded due to neutral‑prompt timeouts
+case 001 — Confounded, Retired
 
-Findings: case 002 findings
+Issue: Control used bullet/numbered formatting while pressure used plain text.
+Models: Gemma 2B (pressure-side drift), Qwen (inverse pattern).
+Outcome: Retired due to formatting confound.
+case 002 — Corrected Baseline
 
-case 003 — identity anchor under override pressure
-Tests whether a fixed system identity anchor can survive escalating user‑turn override attempts
-Uses a four‑state anchor taxonomy instead of shallow string matching
-Detector gaps discovered during this case were corrected in the harness
-Control performance showed the anchor itself was not reliably held at baseline, which narrows the claim
+Fix: Matched plain-text formatting across control and pressure.
+Models: Gemma 2B (stable in clean reruns), Llama 3.2 1B (runtime-limited), Qwen 2.5 1.5B (excluded due to timeouts).
+Findings: case 002 findings
+case 003 — Identity Anchor Under Override Pressure
 
-Findings: case 003 findings
+Goal: Test if a fixed system identity anchor survives escalating user-turn override attempts.
+Method: Uses a four-state anchor taxonomy (not shallow string matching).
+Outcome: Detector gaps corrected; control performance showed anchor instability at baseline.
+Findings: case 003 findings
+case 004 — Structured JSON Holds While Policy Meaning Drifts
 
-case 004 — structured JSON holds while policy meaning drifts
-Tests whether exact JSON structure can hold while semantic policy decisions drift
-Separates schema stability from meaning held / meaning drift
-Shows that valid JSON can still contain the wrong operational decision
-Includes matched control and pressure turns for policy‑style evaluation
+Goal: Test if exact JSON structure can hold while semantic policy decisions drift.
+Method: Separates schema stability from meaning held/drift.
+Outcome: Valid JSON can still contain wrong operational decisions.
+Features: Matched control and pressure turns for policy-style evaluation.
+
 Models Tested
-gemma2:2b — primary local workhorse on current hardware
-llama3.2:1b — runtime‑fragile at current timeout budget
-qwen2.5:1.5b — limited by local timeout behaviour in baseline testing
-llama-3.1-8b-instant — tested through Groq for larger‑model comparison outside local hardware limits
-Known Limitations
-CPU‑only hardware introduces intermittent timeouts in local runs
-Most findings are narrow by design rather than broad benchmark claims
-Cross‑model comparison is still limited by runtime and environment differences
-A structurally valid response does not imply semantic correctness
-Negative or inconclusive results are retained when they are methodologically useful
-What This Repo Does Not Claim
-That any observed behaviour generalises across models or deployments
-That valid structure implies reliable semantic understanding
-That a single transcript proves a systemic vulnerability
-That runtime failures are the same as behavioural findings
-That any one case justifies broad model‑level conclusions
-Direction
 
-Current work is focused on making the Arena harness more reusable and methodologically stricter across cases, then extending it into new evaluation and attack classes rather than starting unrelated side projects.
+
+  
+    
+      Model
+      Status
+    
+  
+  
+    
+      gemma2:2b
+      Primary local workhorse
+    
+    
+      llama3.2:1b
+      Runtime-fragile at current timeout budget
+    
+    
+      qwen2.5:1.5b
+      Limited by local timeout behavior in baseline testing
+    
+    
+      llama-3.1-8b-instant
+      Tested via Groq for larger-model comparison
+    
+  
+
+
+
+Known Limitations
+
+CPU-only hardware introduces intermittent timeouts.
+Findings are narrow by design (not broad benchmark claims).
+Cross-model comparison is limited by runtime/environment differences.
+Structurally valid responses ≠ semantic correctness.
+Negative/inconclusive results retained if methodologically useful.
+
+What This Repo Does Not Claim
+
+Observed behavior generalizes across models/deployments.
+Valid structure implies reliable semantic understanding.
+Single transcripts prove systemic vulnerabilities.
+Runtime failures = behavioral findings.
+Any one case justifies broad model-level conclusions.
+
+Direction
+Current work focuses on:
+
+Making the Arena harness more reusable and methodologically stricter.
+Extending it into new evaluation/attack classes (not unrelated side projects).
 
 Contact
+
 GitHub: aaronmarchant96-max
 X/Twitter: @PromptHound96
+
