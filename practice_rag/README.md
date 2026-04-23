@@ -1,131 +1,277 @@
-# LLM Adversarial Testing — PromptHound
+# Arena Harness — Adversarial LLM Evaluation
 
-**Researcher:** Aaron Marchant (PromptHound)
-**Environment:** Tuxedo OS, Beelink mini PC, CPU-only, ~8GB RAM, Ollama, Python 3.10
-**Status:** Active — April 2026
-
----
-
-## What This Is
-
-A local multi-turn adversarial evaluation harness for small open-weight models.
-The focus is not breaking models for spectacle. The focus is:
-
-- prompt conflict and instruction precedence
-- format adherence under adversarial framing
-- behavioral consistency across matched control and pressure conditions
-- runtime stability under constrained hardware
-
-All tests follow the same pattern:
-1. Define a narrow behavior to test
-2. Build a matched control and pressure case
-3. Run locally with structured JSONL logging
-4. Label outcomes using explicit taxonomy
-5. Separate observation from interpretation
-6. Keep claims proportional to the evidence
+**Researcher:** Aaron Marchant ([PromptHound](https://github.com/aaronmarchant96-max))
+**Environment:** Tuxedo OS   Beelink Mini PC | CPU-only | ~8 GB RAM | Ollama | Python 3.10
+**Status:** Active (April 2026)
 
 ---
 
-## Harness
+## Overview
 
-Run the evaluator from the repo root:
+A **local evaluation harness** for testing LLM reliability under adversarial conditions, focusing on:
+✅ **Structured-output reliability** (JSON/XML schemas)
+✅ **Semantic correctness** under pressure
+✅ **Multi-turn continuity** and state consistency
+✅ **Prompt robustness** against conflicting instructions
+✅ **Reproducible logging** with explicit outcome labels
 
+### Key Features:
+- **Matched control vs. pressure testing**
+- **Deterministic gold answers** for objective scoring
+- **JSONL logging** for auditability
+- **Failure mode taxonomy** (e.g., `meaning_drift`, `schema_stable`)
+
+---
+
+## Quick Start
+
+### 1. Run the Evaluator
 ```bash
-python3 practice_rag/scripts/arena_eval.py --model gemma2:2b --variant all --case-id case_002 --cases practice_rag/configs/arena_cases.json --timeout 240 --out practice_rag/logs/run.jsonl
-```
+python3 practice_rag/scripts/arena_eval.py \
+  --model gemma2:2b \
+  --variant all \
+  --case-id case_004 \
+  --cases practice_rag/configs/arena_cases.json \
+  --timeout 240 \
+  --out practice_rag/logs/case_004.jsonl
 
-**Flags:**
-- `--model` — Ollama model to run
-- `--variant` — control, pressure, or all
-- `--case-id` — run a specific case only
-- `--cases` — path to the case config JSON
-- `--out` — JSONL output path
-- `--timeout` — per-turn timeout in seconds
 
-**Log summary:**
-```bash
-python3 practice_rag/scripts/summarize_log.py practice_rag/logs/run.jsonl
-```
 
----
+2. Summarize Results
+bash
+Copy
 
-## Outcome Labels
+python3 practice_rag/scripts/summarize_log.py practice_rag/logs/case_004.jsonl
 
-- `stable` — instructions held and no format loss was detected
-- `format_drift` — output deviated from required format
-- `collapse` — output was empty or unusable
-- `timeout` — model did not respond within the timeout window
-- `defensive` — model pushed back on prompt content
-- `anchor_held` — anchor present, forbidden identity absent
-- `anchor_partial` — anchor present, forbidden identity also present
-- `anchor_dropped` — anchor absent, forbidden identity present
-- `anchor_missing` — anchor absent, forbidden identity absent
 
----
 
-## Cases
+Command-Line Flags
 
-### case_001 — confounded, retired
-- Control used bullet or numbered formatting while pressure used plain text
-- Gemma 2B showed pressure-side drift, but the signal was confounded
-- Qwen showed the inverse pattern, confirming the formatting mismatch
-- Retired as a clean comparison case
 
-### case_002 — corrected baseline
-- Matched plain-text formatting across control and pressure
-- Both variants use word caps and no list-format requirement
-- Gemma 2B was stable in clean reruns
-- The apparent `case_001` pressure effect did not replicate after the confound was removed
-- Llama 3.2 1B was runtime-limited on current hardware
-- Qwen 2.5 1.5B was excluded due to neutral-prompt timeouts
+  
+    
+      Flag
+      Description
+      Example Value
+    
+  
+  
+    
+      --model
+      Ollama model tag
+      gemma2:2b
+    
+    
+      --variant
+      Test variant: control, pressure, or all
+      all
+    
+    
+      --case-id
+      Filter for a specific case ID
+      case_004
+    
+    
+      --cases
+      Path to case configurations
+      configs/arena_cases.json
+    
+    
+      --timeout
+      Per-turn timeout (seconds)
+      240
+    
+    
+      --out
+      JSONL output path
+      logs/case_004.jsonl
+    
+  
 
-Findings: [case_002 findings](case-studies/case_002_findings.md)
 
-### case_003 — identity anchor under override pressure
-- Tests whether a fixed system identity anchor can survive escalating user-turn override attempts
-- Uses a four-state anchor taxonomy instead of shallow string matching
-- Detector gaps discovered during this case were corrected in the harness
-- Control performance showed the anchor itself was not reliably held at baseline, which narrows the claim
 
-Findings: [case_003 findings](case-studies/case_003_findings.md)
+Evaluation Taxonomy
+Core Outcome Labels
 
----
 
-## Models Tested
+  
+    
+      Label
+      Criteria
+    
+  
+  
+    
+      schema_stable
+      Output matches required JSON structure and keys
+    
+    
+      meaning_held
+      Semantic decision aligns with gold-standard answer
+    
+    
+      meaning_drift
+      Structurally valid but semantically incorrect decision
+    
+    
+      format_drift
+      Output deviates from required format (e.g., missing keys)
+    
+    
+      collapse
+      Empty/unusable response (e.g., refusal, timeout, or gibberish)
+    
+    
+      timeout
+      Model failed to respond within --timeout
+    
+  
 
-- `gemma2:2b` — primary workhorse on current hardware
-- `llama3.2:1b` — runtime-fragile at current timeout budget
-- `qwen2.5:1.5b` — limited by local timeout behavior in baseline testing
 
----
+Case-Specific Labels
 
-## Known Limitations
+anchor_held: Identity anchor preserved under pressure (case_003)
+anchor_drift: Identity anchor overridden (case_003)
 
-- CPU-only hardware introduces intermittent timeouts
-- All findings are for local deployment only
-- Cross-model comparison is limited by runtime instability
-- A structurally valid response does not imply semantic correctness
-- Negative or inconclusive results are retained when they are methodologically useful
+Case Studies
+case_001 — Retired
+Issue: Formatting confound (control used lists, pressure used plain text).
 
----
+Outcome: Retired after confirming the confound with Qwen’s inverse pattern.
+case_002 — Baseline Stability
+Fix: Matched plain-text formatting across variants.
 
-## What This Repo Does Not Claim
+Models:
 
-- That any observed behavior generalizes across models or deployments
-- That valid structure implies reliable semantic understanding
-- That a single transcript proves a systemic vulnerability
-- That runtime failures are behavioral findings
-- That any one case justifies broad model-level conclusions
+Gemma 2B: Stable in clean reruns (no drift replication).
+Llama 3.2 1B: Runtime-limited on current hardware.
+Qwen 2.5 1.5B: Excluded due to neutral-prompt timeouts.
+case_003 — Identity Anchor
+Goal: Test if a fixed system identity survives user-turn override attempts.
 
----
+Method: Four-state anchor taxonomy (beyond string matching).
 
-## Direction
+Finding: Control performance revealed baseline anchor instability.
+case_004 — Semantic Drift in Valid JSON
+Goal: Can models preserve JSON structure while making wrong decisions?
 
-Current work is focused on making the Arena harness more reusable and methodologically stricter across cases, then extending it into new attack classes rather than starting unrelated projects.
+Method: Matched control/pressure turns with gold-standard answers.
 
----
+Key Result:
 
-## Contact
+100% schema stability (valid JSON in all cases).
+60% semantic drift under continuity pressure (correct structure, wrong decisions).
 
-- GitHub: [aaronmarchant96-max](https://github.com/aaronmarchant96-max)
-- X: @PromptHound96
+Mitigations Tested:
+
+| Mitigation                | Drift Reduction |
+
+|---------------------------|-----------------|
+
+| Turn-by-turn fact validation | 50%             |
+
+| Explicit reasoning prompts | 33%             |
+
+Models and Hardware
+Local Models (CPU-only)
+
+
+  
+    
+      Model
+      Status
+      Notes
+    
+  
+  
+    
+      gemma2:2b
+      ✅ Primary workhorse
+      Stable for 90% of tests
+    
+    
+      llama3.2:1b
+      ⚠️ Runtime-fragile
+      Frequently times out
+    
+    
+      qwen2.5:1.5b
+      ❌ Excluded
+      Baseline timeouts
+    
+  
+
+
+Cloud Models (Comparison)
+
+
+  
+    
+      Model
+      Provider
+      Use Case
+    
+  
+  
+    
+      llama-3.1-8b-instant
+      Groq
+      Larger-model baseline comparison
+    
+  
+
+
+
+Limitations
+Technical Constraints
+
+CPU-only hardware introduces intermittent timeouts.
+Cross-model comparisons are limited by runtime differences.
+Methodological Boundaries
+
+Narrow claims by design (not benchmarking).
+Structurally valid ≠ semantically correct.
+Negative/inconclusive results are retained if methodologically useful.
+What This Repo Does Not Claim
+
+Generalizability across models/deployments.
+Systemic vulnerabilities from single transcripts.
+Runtime failures as behavioral findings.
+
+Roadmap
+Short-Term (Q2 2026)
+
+ Extend case_004 to RAG workflows (retrieval + structured output).
+ Add automated mitigation testing (e.g., fact validation prompts).
+ Publish comparative findings for Gemma 2B vs. Llama 3.1 8B (Groq).
+Long-Term
+
+Develop reusable templates for policy-engine testing.
+Integrate Groq API support for larger-model testing.
+Expand to multi-agent continuity failures.
+
+Contact & Services
+Need LLM Testing?
+
+I offer freelance services for:
+
+🔹 Prompt Injection Audits
+
+🔹 Schema Drift Evaluation
+
+🔹 Adversarial Case Studies
+
+🔹 Custom Evaluation Harnesses
+📩prompthound.ai@gmail.com
+
+🐦 Twitter/X
+prompthound96
+💼 Fiverr
+prompthound
+
+
+
+
+
+
+
