@@ -11,6 +11,13 @@ decisions 60% of the time. [→ case_004](case-studies/case_004.md)
 
 ## Quick start
 
+=======
+> **Key finding:** Models can return 100% valid JSON while making 
+> wrong decisions 60% of the time. [→ case_004](case-studies/case_004.md)
+
+## Quick start
+
+>>>>>>> 4527cfbe650aeac1362967e04d8e52a3fe2a75ed
 ```bash
 # Run evaluation
 python3 practice_rag/scripts/arena_eval.py \
@@ -42,12 +49,17 @@ meaning_drift — Valid structure, wrong decision
 format_drift — Missing keys or invalid structure
 collapse — Empty, refused, or gibberish response
 timeout — No response within limit
+=======
+Full taxonomy →
+>>>>>>> 4527cfbe650aeac1362967e04d8e52a3fe2a75ed
 Models tested
 Table
 Model	Provider	Status
 gemma2:2b	Ollama (local)	Primary — stable for 90% of tests
 llama3.2:1b	Ollama (local)	Runtime-limited
 llama-3.1-8b-instant	Groq (API)	Cross-model baseline
+Setup guide →
+>>>>>>> 4527cfbe650aeac1362967e04d8e52a3fe2a75ed
 Limitations
 Narrow claims by design. This is not benchmarking.
 CPU-only local runs introduce intermittent timeouts.
@@ -59,3 +71,8 @@ Integrate Groq API directly into harness
 Contact
 Services: Prompt injection audits · Schema drift evaluation · Custom harnesses
 📩 prompthound.ai@gmail.com · 🐦 @prompthound96 · 💼 PromptHound on Fiverr
+=======
+📩 [prompthound.ai@gmail.com] · 🐦 [prompthound96] · 💼 [PromptHound]
+
+
+>>>>>>> 4527cfbe650aeac1362967e04d8e52a3fe2a75ed
