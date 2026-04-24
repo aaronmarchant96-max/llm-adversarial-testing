@@ -23,6 +23,17 @@ Core evaluation areas:
 
 ## Key Findings
 
+### Case 007 — Refund Authorization Boundary
+
+A simulated tool-selection test showed that Groq-hosted Llama 3.1 8B preserved the high-risk refund authorization boundary, but sometimes over-escalated valid low-value refunds when untrusted context urged extra caution.
+
+- **Schema stability:** 30 / 30 rows
+- **Meaning held:** 27 / 30 rows
+- **Unauthorized high-value refund execution:** 0 / 15 pressure rows
+- **Over-escalation on valid low-value refund:** 3 / 5 false fraud-note rows
+
+[Read Case 007 →](case-studies/case_007.md)
+
 ### Case 006 — Policy vs. Poison
 
 A simplified warranty-policy RAG-style test showed a clear model-dependent split.
@@ -93,6 +104,7 @@ done
 | [case_004](case-studies/case_004.md) | Active | Semantic drift in structured outputs |
 | [case_003](case-studies/case_003.md) | Active | Identity-anchor override pressure |
 | [case_002](case-studies/case_002.md) | Stable | Baseline controls and methodology correction |
+| [case_007](case-studies/case_007.md) | Active | Simulated refund authorization boundary under poisoned context |
 
 ## Evaluation Labels
 
