@@ -66,7 +66,7 @@ Turn 2 is the only consistent signal. Turn 3 reversed (control 4/5, pressure 2/5
 
 - Single model, single deployment context. Not generalizable.
 - Universal role failure in both variants limits interpretability of the pressure differential — both are failing, just through different mechanisms.
-- `anchor_missing` label fires on all case_004 turns due to a known harness bug. Disregard for this case.
+- Earlier harness versions incorrectly applied `anchor_missing` to non-anchor cases. This was later fixed in `arena_eval.py`; older case_004 logs should be interpreted with that caveat.
 - n=5 supports pattern description only. Cross-model validation required before any stronger claim.
 
 ---
