@@ -58,7 +58,11 @@ Earlier testing showed that models can preserve structure while drifting in mean
 │   ├── case_002.md
 │   ├── case_003.md
 │   ├── case_004.md
-│   └── case_006.md
+│   ├── case_006.md
+│   └── case_007.md
+├── evidence/
+│   ├── case_006/
+│   └── case_007/
 └── practice_rag/
     ├── configs/
     │   └── arena_cases.json
