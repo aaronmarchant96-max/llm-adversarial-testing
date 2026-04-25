@@ -99,6 +99,7 @@ for i in 1 2 3 4 5; do
     --out "practice_rag/logs/case_006_gemma2_trial_${i}.jsonl"
 done
 ```
+
 ## Case Studies
 
 | Case | Status | Focus |
@@ -185,6 +186,13 @@ Local Gemma 2B:
 0 / 30 schema stable
 0 / 30 meaning held
 15 / 15 pressure rows poison-followed
+```
+
+Interpretation:
+
+A stronger instruction-following model completed the simplified policy task cleanly, while the smaller local model failed both baseline schema adherence and pressure resistance. This supports the case design as a useful model-comparison evaluation, not a broad production vulnerability claim.
+
+Case 007 is currently the strongest simulated authorization-boundary case. It is documented with Groq evidence, but has not yet been integrated into the local Ollama harness.
 
 ## Limitations
 
