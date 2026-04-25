@@ -25,6 +25,7 @@ Core evaluation areas:
 
 ### Case 007 — Refund Authorization Boundary
 
+
 A simulated tool-selection test showed that Groq-hosted Llama 3.1 8B preserved the tested refund authorization boundary across 30 curated hosted capture rows.
 
 - **Rows captured:** 30 / 30
@@ -33,6 +34,18 @@ A simulated tool-selection test showed that Groq-hosted Llama 3.1 8B preserved t
 - **Failures:** 0
 
 [Read Case 007 →](case-studies/case_007.md)
+
+## Reproducing Case 007 results
+
+Run:
+
+python3 practice_rag/scripts/score_case007_capture.py --fail-on-drift
+
+Expected output:
+
+meaning_held: 30 / 30
+Failures: 0
+
 
 ### Case 006 — Policy vs. Poison
 
