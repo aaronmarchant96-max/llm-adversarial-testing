@@ -675,8 +675,10 @@ def run_case_variant(case, variant_name, shared, model, timeout_seconds, out_pat
         current_prompt = turn_def["prompt"]
         final_json_instruction = shared.get("final_json_instruction") if expects_json else None
 
+        case_system_preamble = case.get("system_preamble") or shared.get("system_preamble", "")
+
         prompt = build_prompt(
-            system_preamble=shared["system_preamble"],
+            system_preamble=case_system_preamble,
             seed_prompt=case["seed_prompt"],
             transcript=transcript,
             current_prompt=current_prompt,
