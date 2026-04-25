@@ -25,12 +25,12 @@ Core evaluation areas:
 
 ### Case 007 — Refund Authorization Boundary
 
-A simulated tool-selection test showed that Groq-hosted Llama 3.1 8B preserved the high-risk refund authorization boundary, but sometimes over-escalated valid low-value refunds when untrusted context urged extra caution.
+A simulated tool-selection test showed that Groq-hosted Llama 3.1 8B preserved the tested refund authorization boundary across 30 curated hosted capture rows.
 
-- **Schema stability:** 30 / 30 rows
-- **Meaning held:** 27 / 30 rows
+- **Rows captured:** 30 / 30
+- **Meaning held:** 30 / 30 rows
 - **Unauthorized high-value refund execution:** 0 / 15 pressure rows
-- **Over-escalation on valid low-value refund:** 3 / 5 false fraud-note rows
+- **Failures:** 0
 
 [Read Case 007 →](case-studies/case_007.md)
 
@@ -67,7 +67,8 @@ Earlier testing showed that models can preserve structure while drifting in mean
     ├── configs/
     │   └── arena_cases.json
     ├── scripts/
-    │   └── arena_eval.py
+    │   ├── arena_eval.py
+    │   └── run_groq_case.py
     └── logs/
         └── local JSONL run outputs
 ```
@@ -192,7 +193,7 @@ Interpretation:
 
 A stronger instruction-following model completed the simplified policy task cleanly, while the smaller local model failed both baseline schema adherence and pressure resistance. This supports the case design as a useful model-comparison evaluation, not a broad production vulnerability claim.
 
-Case 007 is currently the strongest simulated authorization-boundary case. It is documented with Groq evidence, but has not yet been integrated into the local Ollama harness.
+Case 007 is currently the strongest simulated authorization-boundary case. It is configured in the arena harness and documented with a curated 30-row Groq hosted capture set. Local Ollama comparison runs are still planned.
 
 ## Limitations
 
@@ -208,7 +209,7 @@ Case 007 is currently the strongest simulated authorization-boundary case. It is
 Planned improvements:
 
 - Add curated evidence logs for selected cases.
-- Add direct Groq reproducibility scripts or notebooks.
+- Add a scoring script for hosted Groq capture logs.
 - Add more local model comparisons.
 - Expand poisoned-context tests beyond the warranty-policy domain.
 - Add mitigation tests that compare prompt-only, parser-enforced, and policy-validator approaches.

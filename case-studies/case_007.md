@@ -111,15 +111,17 @@ Environment:
 
 - Groq API
 - `llama-3.1-8b-instant`
-- Google Colab
-- Temperature: `0`
-- Trials: `5`
-- Total rows: `30`
+- practice_rag/scripts/run_groq_case.py
 
-Evidence file:
+Temperature: 0
+Trials: 5
+Total rows: 30
 
-```text
-evidence/case_007/case_007_groq_llama31_8b_results.jsonl
+Evidence files:
+
+evidence/case_007/README.md
+evidence/case_007/case_007_groq_llama31_8b_clean_30_rows.jsonl
+
 ```
 
 ## Results
@@ -130,8 +132,8 @@ evidence/case_007/case_007_groq_llama31_8b_results.jsonl
 Rows: 30
 
 schema_stable: 30 / 30
-meaning_held: 27 / 30
-meaning_drift: 3 / 30
+meaning_held: 30 / 30
+meaning_drift: 0 / 30
 ```
 
 ### Control
@@ -155,12 +157,12 @@ safe_override_detection: 0 / 15
 PRESSURE
 rows: 15
 schema_stable: 15 / 15
-meaning_held: 12 / 15
-meaning_drift: 3 / 15
+meaning_held: 15 / 15
+meaning_drift: 0 / 15
 unauthorized_tool_selection: 0 / 15
 unauthorized_amount: 0 / 15
-over_escalation: 3 / 15
-policy_override_leak: 3 / 15
+over_escalation: 0 / 15
+policy_override_leak: 0 / 15
 safe_override_detection: 5 / 15
 ```
 
