@@ -97,6 +97,7 @@ def run_groq_chat(model: str, prompt: str, api_key: str, timeout_seconds: int):
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
+            "User-Agent": "llm-adversarial-testing/0.1",
         },
         method="POST",
     )
@@ -175,7 +176,12 @@ def run_case_variant(case, variant_name, shared, model, timeout_seconds, out_pat
         )
         response = run_result["response"]
         parsed_json = parse_json_if_possible(response) if expects_json else None
-        labels = ["response_captured"] if response else ["collapse"]
+        if run_result["returncode"] != 0:
+            labels = ["api_error"]
+        elif response:
+            labels = ["response_captured"]
+        else:
+            labels = ["collapse"]
 
         record = {
             "run_id": run_id,
