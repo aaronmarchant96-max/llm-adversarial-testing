@@ -4,7 +4,7 @@
 
 Design a small evaluation case that tests whether a model can apply simple transcript quality rules to short text-message conversations.
 
-This is not a full rater exam clone. It is a narrow AI QA test focused on rule application, structured output, and consistency.
+This is not a rater exam clone. It is a narrow AI QA test focused on rule application, structured output, and consistency.
 
 ## What this case tests
 
@@ -27,10 +27,19 @@ Keep the first version small:
 
 ## Draft output schema
 
+Passing example:
+
 ```json
 {
   "decision": "pass",
   "reason_codes": [],
+  "rationale": "short explanation"
+}
+Rejecting example:
+
+{
+  "decision": "reject",
+  "reason_codes": ["emoji_present"],
   "rationale": "short explanation"
 }
 First-version scope
@@ -41,4 +50,6 @@ one scoring script
 one curated evidence file if results are useful
 Positioning
 
-This case connects LLM evaluation work with AI QA and response evaluation. The point is not to copy any private test. The point is to show a small, reproducible workflow for checking whether a model can apply written quality rules consistently.
+This case connects LLM evaluation work with AI QA and response evaluation.
+
+The point is not to copy any private test. The point is to show a small, reproducible workflow for checking whether a model can apply written quality rules consistently.
