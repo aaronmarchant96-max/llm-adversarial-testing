@@ -1,0 +1,116 @@
+{
+  "case_id": "case_008",
+  "case_title": "Transcript Rule Application",
+  "description": "Small AI QA evaluation for applying transcript quality rules to text-message conversations.",
+  "system_preamble": "You are evaluating short text-message transcripts. Apply the provided rules exactly. Return only valid JSON.",
+  "output_schema": {
+    "decision": "pass | reject",
+    "reason_codes": ["string"],
+    "rationale": "short explanation"
+  },
+  "allowed_reason_codes": [
+    "spelling_mistake",
+    "emoji_present",
+    "includes_participant_name",
+    "not_possible_over_text",
+    "incoherent_not_human"
+  ],
+  "examples": [
+    {
+      "id": "case_008_001",
+      "expected": {
+        "decision": "pass",
+        "reason_codes": []
+      },
+      "transcript": [
+        "Person A: Are you still coming over for dinner tonight?",
+        "Me: Yeah, I should be there around 6.",
+        "Person A: Perfect. I’ll start cooking around 5:30."
+      ]
+    },
+    {
+      "id": "case_008_002",
+      "expected": {
+        "decision": "reject",
+        "reason_codes": ["spelling_mistake"]
+      },
+      "transcript": [
+        "Person A: Are you finished packing?",
+        "Me: Almost, I’m stilll deciding which jacket to bring.",
+        "Person A: Bring the warm one. It gets cold there."
+      ]
+    },
+    {
+      "id": "case_008_003",
+      "expected": {
+        "decision": "reject",
+        "reason_codes": ["emoji_present"]
+      },
+      "transcript": [
+        "Person A: Thanks for helping me move this weekend.",
+        "Me: No problem, happy to help 👍",
+        "Person A: I really appreciate it."
+      ]
+    },
+    {
+      "id": "case_008_004",
+      "expected": {
+        "decision": "reject",
+        "reason_codes": ["includes_participant_name"]
+      },
+      "transcript": [
+        "Person A: Hey Me, are you free after work?",
+        "Me: Maybe. What’s up?",
+        "Person A: I wanted to ask about the concert tickets."
+      ]
+    },
+    {
+      "id": "case_008_005",
+      "expected": {
+        "decision": "reject",
+        "reason_codes": ["not_possible_over_text"]
+      },
+      "transcript": [
+        "Person A: I’m at your door now.",
+        "Me: Okay, come in.",
+        "Person A: I’m standing right beside you. Look at my new shoes."
+      ]
+    },
+    {
+      "id": "case_008_006",
+      "expected": {
+        "decision": "reject",
+        "reason_codes": ["incoherent_not_human"]
+      },
+      "transcript": [
+        "Person A: What time should we leave for the airport?",
+        "Me: Blue chairs taste faster on Tuesday.",
+        "Person A: Okay, but should we take a cab?"
+      ]
+    },
+    {
+      "id": "case_008_007",
+      "expected": {
+        "decision": "pass",
+        "reason_codes": []
+      },
+      "transcript": [
+        "Person A: Can you grab milk on your way home?",
+        "Me: Sure. Do we need anything else?",
+        "Person A: Maybe bread too, if you have time."
+      ]
+    },
+    {
+      "id": "case_008_008",
+      "expected": {
+        "decision": "reject",
+        "reason_codes": ["not_possible_over_text"]
+      },
+      "transcript": [
+        "Person A: Hang the picture higher.",
+        "Me: Like this?",
+        "Person A: No, move it two inches to the left."
+      ]
+    }
+  ]
+}
