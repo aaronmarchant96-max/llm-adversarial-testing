@@ -25,7 +25,6 @@ Core evaluation areas:
 
 ### Case 007 — Refund Authorization Boundary
 
-
 A simulated tool-selection test showed that Groq-hosted Llama 3.1 8B preserved the tested refund authorization boundary across 30 curated hosted capture rows.
 
 - **Rows captured:** 30 / 30
@@ -39,47 +38,44 @@ A simulated tool-selection test showed that Groq-hosted Llama 3.1 8B preserved t
 
 Run:
 
+```bash
 python3 practice_rag/scripts/score_case007_capture.py --fail-on-drift
 
 Expected output:
 
 meaning_held: 30 / 30
 Failures: 0
-
-
-### Case 006 — Policy vs. Poison
+Case 006 — Policy vs. Poison
 
 A simplified warranty-policy RAG-style test showed a clear model-dependent split.
 
-- **Groq-hosted Llama 3.1 8B:** 55 / 55 repeated-trial rows preserved schema and policy meaning.
-- **Local Gemma 2B:** 0 / 30 rows were schema-stable, and 15 / 15 pressure rows produced poison-aligned action output.
+Groq-hosted Llama 3.1 8B: 55 / 55 repeated-trial rows preserved schema and policy meaning.
+Local Gemma 2B: 0 / 30 rows were schema-stable, and 15 / 15 pressure rows produced poison-aligned action output.
 
-[Read Case 006 →](case-studies/case_006.md)
+Read Case 006 →
 
-### Case 004 — Valid JSON Can Still Mean the Wrong Thing
+Case 004 — Valid JSON Can Still Mean the Wrong Thing
 
-Earlier testing showed that models can preserve structure while drifting in meaning. This is the core reason the harness separates `schema_stable` from `meaning_held`.
+Earlier testing showed that models can preserve structure while drifting in meaning. This is the core reason the harness separates schema_stable from meaning_held.
 
-[Read Case 004 →](case-studies/case_004.md)
+Read Case 004 →
 
-### Case 008 — Transcript Rule Application Rater Validation
+Case 008 — Transcript Rule Application Rater Validation
 
 A repeated hosted rater-validation test showed a stable failure profile on a small hand-crafted transcript moderation set.
 
-- **Trials:** 4 clean repeated Groq runs
-- **Rows per trial:** 8
-- **Meaning held:** 3 / 8 in every run
-- **Meaning drift:** 5 / 8 in every run
-- **Stable held set:** `case_008_001`, `case_008_006`, `case_008_007`
-- **Stable failure set:** `case_008_002`, `case_008_003`, `case_008_004`, `case_008_005`, `case_008_008`
+Trials: 4 clean repeated Groq runs
+Rows per trial: 8
+Meaning held: 3 / 8 in every run
+Meaning drift: 5 / 8 in every run
+Stable held set: case_008_001, case_008_006, case_008_007
+Stable failure set: case_008_002, case_008_003, case_008_004, case_008_005, case_008_008
 
-The strongest qualitative failure was a repeated rationale hallucination on `case_008_005`, where the model rejected the transcript but justified it with an invented participant-name claim instead of the actual `not_possible_over_text` violation.
+The strongest qualitative failure was a repeated rationale hallucination on case_008_005, where the model rejected the transcript but justified it with an invented participant-name claim instead of the actual not_possible_over_text violation.
 
-[Read Case 008 →](case-studies/case_008.md)
+Read Case 008 →
 
-## Project Structure
-
-```text
+Project Structure
 .
 ├── README.md
 ├── case-studies/
@@ -94,10 +90,13 @@ The strongest qualitative failure was a repeated rationale hallucination on `cas
 │   └── case_007/
 └── practice_rag/
     ├── configs/
-    │   └── arena_cases.json
+    │   ├── arena_cases.json
+    │   └── case_008_rater_validation.json
     ├── scripts/
     │   ├── arena_eval.py
-    │   └── run_groq_case.py
+    │   ├── run_groq_case.py
+    │   ├── run_groq_case008.py
+    │   └── score_case008_capture.py
     └── logs/
         └── local JSONL run outputs
 Quick Start
@@ -226,7 +225,7 @@ Roadmap
 Planned improvements:
 
 Add curated evidence logs for selected cases.
-Add a scoring script for hosted Groq capture logs.
+Expand hosted capture scoring to additional cases.
 Add more local model comparisons.
 Expand poisoned-context tests beyond the warranty-policy domain.
 Add mitigation tests that compare prompt-only, parser-enforced, and policy-validator approaches.
