@@ -13,6 +13,19 @@ Local LLM evaluation harness for testing whether models preserve **meaning**, **
 
 This project focuses on practical AI evaluation, not benchmark claims. The goal is to run small, reproducible tests that compare neutral prompts against adversarial or poisoned-context variants, then log the results in a structured way.
 
+## Start Here
+
+If you are reviewing this portfolio, these are the strongest proof pieces:
+
+| Proof piece | What it shows | Where to look |
+|---|---|---|
+| Case 007 | Simulated authorization-boundary testing under poisoned retrieved context, with explicit labels for unauthorized action, over-escalation, and policy override leakage. | [case-studies/case_007.md](case-studies/case_007.md) |
+| Gemma 2B role-play variation study | Variation-based local red-team testing, nuanced outcome labels, and cautious interpretation under CPU-only constraints. | [case-studies/gemma2b-roleplay-jailbreak.md](case-studies/gemma2b-roleplay-jailbreak.md) |
+| Dual Axis Red Team Adaptation | A human-readable evaluation framework that separates attack quality, model outcome, and real-world severity. | [dual_axis_arena/docs/red_team_adaptation.md](dual_axis_arena/docs/red_team_adaptation.md) |
+| Case 008 | Repeated hosted rater-validation runs showing stable under-detection and rationale hallucination on a small transcript moderation set. | [case-studies/case_008.md](case-studies/case_008.md) |
+
+The main signal is not that every test finds a failure. The main signal is the workflow: narrow test design, matched control and pressure cases, structured logs, explicit labels, and proportional claims.
+
 ## What This Tests
 
 Most structured-output evaluations only check whether a model returns valid JSON.
