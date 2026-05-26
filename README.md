@@ -22,6 +22,7 @@ If you are reviewing this portfolio, these are the strongest proof pieces:
 | Case 007 | Simulated authorization-boundary testing under poisoned retrieved context, with explicit labels for unauthorized action, over-escalation, and policy override leakage. | [case-studies/case_007.md](case-studies/case_007.md) |
 | Gemma 2B role-play variation study | Variation-based local red-team testing, nuanced outcome labels, and cautious interpretation under CPU-only constraints. | [case-studies/gemma2b-roleplay-jailbreak.md](case-studies/gemma2b-roleplay-jailbreak.md) |
 | Dual Axis Red Team Adaptation | A human-readable evaluation framework that separates attack quality, model outcome, and real-world severity. | [dual_axis_arena/docs/red_team_adaptation.md](dual_axis_arena/docs/red_team_adaptation.md) |
+| Case 009 | A runnable Dual Axis scoring demo with sample dialogue and red-team cases, deterministic local heuristics, and JSONL output. | [case-studies/case_009_dual_axis_arena.md](case-studies/case_009_dual_axis_arena.md) |
 | Case 008 | Repeated hosted rater-validation runs showing stable under-detection and rationale hallucination on a small transcript moderation set. | [case-studies/case_008.md](case-studies/case_008.md) |
 
 The main signal is not that every test finds a failure. The main signal is the workflow: narrow test design, matched control and pressure cases, structured logs, explicit labels, and proportional claims.
@@ -111,7 +112,8 @@ The strongest qualitative failure was a repeated rationale hallucination on `cas
 │   ├── case_004.md
 │   ├── case_006.md
 │   ├── case_007.md
-│   └── case_008.md
+│   ├── case_008.md
+│   └── case_009_dual_axis_arena.md
 ├── evidence/
 │   ├── case_006/
 │   └── case_007/
@@ -160,6 +162,7 @@ done
 
 | Case | Status | Focus |
 |---|---:|---|
+| [case_009_dual_axis_arena](case-studies/case_009_dual_axis_arena.md) | Active | Runnable Dual Axis dialogue and red-team scoring demo |
 | [case_008](case-studies/case_008.md) | Active | Automated rater validation with stable under-detection and rationale hallucination |
 | [case_007](case-studies/case_007.md) | Active | Simulated refund authorization boundary under poisoned context |
 | [case_006](case-studies/case_006.md) | Active | Policy vs. poisoned retrieved context |
