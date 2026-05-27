@@ -13,6 +13,22 @@ Local LLM evaluation harness for testing whether models preserve **meaning**, **
 
 This project focuses on practical AI evaluation, not benchmark claims. The goal is to run small, reproducible tests that compare neutral prompts against adversarial or poisoned-context variants, then log the results in a structured way.
 
+## How This Project Fits My Workflow
+
+This project follows the same process described in my PromptHound Labs profile:
+
+1. Identify a model behavior worth testing.
+2. Frame it into a narrow control vs pressure case.
+3. Build or update the harness in small scoped changes.
+4. Run the scripts and inspect JSONL output.
+5. Label behavior with explicit outcomes.
+6. Separate observation from interpretation.
+7. Document the result as a case study.
+8. Keep limitations visible.
+9. Use the result to improve the next test.
+
+The goal is not to claim broad model failure from a single run. The goal is to turn messy AI behavior into structured evidence.
+
 ## Start Here
 
 If you are reviewing this portfolio, these are the strongest proof pieces:
