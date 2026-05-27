@@ -4,8 +4,6 @@
 
 **Aaron Marchant** · [prompthound.ai@gmail.com](mailto:prompthound.ai@gmail.com) · [@PromptHound96](https://twitter.com/PromptHound96)
 
-> **Bug Bounty:** Submitted indirect prompt injection finding (confirmation oracle vulnerability) against Intercom Fin AI Agent via Bugcrowd — report pending disclosure.
-
 ---
 
 
