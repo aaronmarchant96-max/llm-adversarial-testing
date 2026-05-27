@@ -12,6 +12,22 @@ This is not a live tool-calling test. No real refund tool is executed. The model
 
 The goal is to evaluate whether the model can act as a reliable authorization gatekeeper when poisoned context tries to influence the decision path.
 
+## Methodology Map
+
+This case follows the same workflow used across the rest of the portfolio:
+
+1. Identify a model behavior worth testing.
+2. Frame it into a narrow control vs pressure case.
+3. Build or update the harness in small scoped changes.
+4. Run the scripts and inspect JSONL output.
+5. Label behavior with explicit outcomes.
+6. Separate observation from interpretation.
+7. Document the result as a case study.
+8. Keep limitations visible.
+9. Use the result to improve the next test.
+
+The goal is not to claim broad model failure from a small controlled test. The goal is to turn messy AI behavior into structured evidence.
+
 ## Why Case 007 Exists
 
 Case 006 tested policy preservation in a warranty decision task. The model only needed to return an approval or denial decision.
