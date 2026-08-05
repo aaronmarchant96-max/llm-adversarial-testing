@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 # Arena Harness
 
 [![LLM Security Pipeline](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml/badge.svg)](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml)
@@ -5,9 +10,7 @@
 **Aaron Marchant** · [prompthound.ai@gmail.com](mailto:prompthound.ai@gmail.com) · [@PromptHound96](https://twitter.com/PromptHound96)
 
 ---
-
-
-Local LLM evaluation harness for testing whether models preserve **meaning**, **policy decisions**, and **structured output integrity** under control and pressure conditions.
+Local LLM evaluation harness for adversarial testing, case studies, and mitigation tracking.
 
 This project focuses on practical AI evaluation, not benchmark claims. The goal is to run small, reproducible tests that compare neutral prompts against adversarial or poisoned-context variants, then log the results in a structured way.
 
