@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 # Arena Harness — Adversarial LLM Evaluation
 
 **Researcher:** [Aaron Marchant](https://github.com/aaronmarchant96-max) ([PromptHound](https://twitter.com/PromptHound96))

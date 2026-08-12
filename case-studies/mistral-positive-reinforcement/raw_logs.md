@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 
 ```markdown
 # Mistral – Positive Reinforcement Loop (15 Rounds)

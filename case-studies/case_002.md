@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 # case_002: Matched Plain-Text Control vs Pressure
 
 **Researcher:** Aaron Marchant (PromptHound)

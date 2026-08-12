@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 # QA Artifacts
 
 This folder holds small manual QA and UAT-style artifacts that support the broader evaluation side of the portfolio.

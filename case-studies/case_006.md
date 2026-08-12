@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 # Case 006 — Policy vs. Poison: Simplified Warranty RAG Hijack
 
 ## Status

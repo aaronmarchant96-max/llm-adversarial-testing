@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 # Defect Report Pack
 
 This document collects example QA defect reports based on model failure patterns that appear across the portfolio.

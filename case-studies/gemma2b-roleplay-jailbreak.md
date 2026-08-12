@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 # Automated Variation Testing of a Role-Play Jailbreak on a Local LLM
 
 **Researcher:** Aaron Marchant (PromptHound)

@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 # Dual Axis Red Team Adaptation
 
 **Purpose:** Apply the Dual Axis Judging System to authorized LLM red team testing.

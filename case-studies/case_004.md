@@ -1,3 +1,8 @@
+<!--
+CARDO REI methodology applied to this document.
+Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
+-->
+
 # Case Study 004 — Policy Role Internalization Failure and Pressure-Sensitive Schema Drift
 
 **Model:** Gemma 2B (gemma2:2b) via Ollama  
