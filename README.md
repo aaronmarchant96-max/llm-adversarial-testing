@@ -5,9 +5,9 @@ Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
 
 # Arena Harness
 
-[![LLM Security Pipeline](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml/badge.svg)](https://github.com/aaronmarchant96-max/llm-adversarial-testing/actions/workflows/redteam.yml)
-
 **Aaron Marchant** · [prompthound.ai@gmail.com](mailto:prompthound.ai@gmail.com) · [@PromptHound96](https://twitter.com/PromptHound96)
+
+> **Validation note:** GitHub Actions is currently paused on this account (billing hold), so the CI badge is intentionally omitted rather than left red. The three workflow checks — repo structure, JSON config validity, and Python syntax (`py_compile`) — are reproducible locally: `test -d practice_rag/scripts && python3 -m json.tool practice_rag/configs/*.json && python3 -m py_compile practice_rag/scripts/arena_eval.py`.
 
 ---
 Local LLM evaluation harness for adversarial testing, case studies, and mitigation tracking.
@@ -41,6 +41,8 @@ If you are reviewing this portfolio, these are the strongest proof pieces:
 | Dual Axis Red Team Adaptation | A human-readable evaluation framework that separates attack quality, model outcome, and real-world severity. | [dual_axis_arena/docs/red_team_adaptation.md](dual_axis_arena/docs/red_team_adaptation.md) |
 | Case 009 | A runnable Dual Axis scoring demo with sample dialogue and red-team cases, deterministic local heuristics, and JSONL output. | [case-studies/case_009_dual_axis_arena.md](case-studies/case_009_dual_axis_arena.md) |
 | Case 008 | Repeated hosted rater-validation runs showing stable under-detection and rationale hallucination on a small transcript moderation set. | [case-studies/case_008.md](case-studies/case_008.md) |
+| PromptHound Red Team Lab | A runnable Python package (CLI + evaluators + schemas) for structured red-team attack runs with versioned JSONL output, defects, reports, and decisions. | [prompt_hound_red_team_lab/](prompt_hound_red_team_lab/) |
+| Iris Dataset Guard | A worked example of validating a public ML dataset against documented schema and provenance before reuse, with a QA assessment and reproduction report. | [public_dataset_guard/](public_dataset_guard/) |
 
 The main signal is not that every test finds a failure. The main signal is the workflow: narrow test design, matched control and pressure cases, structured logs, explicit labels, and proportional claims.
 
@@ -134,6 +136,19 @@ The strongest qualitative failure was a repeated rationale hallucination on `cas
 ├── evidence/
 │   ├── case_006/
 │   └── case_007/
+├── prompt_hound_red_team_lab/
+│   ├── __init__.py
+│   ├── cli.py
+│   ├── evaluate.py
+│   ├── io.py
+│   ├── report.py
+│   ├── schemas.py
+│   └── data/            (templates, runs, defects, reports, decisions, evaluations)
+├── public_dataset_guard/
+│   ├── validate_iris.py
+│   ├── iris_sample.csv
+│   ├── qa_assessment.md
+│   └── output/
 └── practice_rag/
     ├── configs/
     │   ├── arena_cases.json
