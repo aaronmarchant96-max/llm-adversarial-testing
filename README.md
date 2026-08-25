@@ -3,14 +3,30 @@ CARDO REI methodology applied to this document.
 Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
 -->
 
-# Arena Harness
+# Arena Harness — Adversarial AI Evaluation & Benchmarking
 
 **Aaron Marchant** · [prompthound.ai@gmail.com](mailto:prompthound.ai@gmail.com) · [@PromptHound96](https://twitter.com/PromptHound96)
 
 > **Validation note:** GitHub Actions is currently paused on this account (billing hold), so the CI badge is intentionally omitted rather than left red. The three workflow checks — repo structure, JSON config validity, and Python syntax (`py_compile`) — are reproducible locally: `test -d practice_rag/scripts && python3 -m json.tool practice_rag/configs/*.json && python3 -m py_compile practice_rag/scripts/arena_eval.py`.
 
 ---
-Local LLM evaluation harness for adversarial testing, case studies, and mitigation tracking.
+
+**What this does:** Arena Harness is a local LLM evaluation framework for adversarial testing and mitigation tracking. It isolates prompt vulnerabilities, tests multi-turn stability under poisoned context, and verifies whether structured outputs maintain their intended meaning when under adversarial pressure.
+
+### Architecture
+
+```mermaid
+flowchart TD
+    A[Neutral Prompt] --> B[Adversarial Harness]
+    C[Poisoned Context] --> B
+    B --> D[Target LLM]
+    D --> E[JSON/Structured Output]
+    E --> F{Dual Axis Evaluator}
+    F --> G[Schema Stability]
+    F --> H[Meaning Preservation]
+    G --> I[Evaluation Logs JSONL]
+    H --> I
+```
 
 This project focuses on practical AI evaluation, not benchmark claims. The goal is to run small, reproducible tests that compare neutral prompts against adversarial or poisoned-context variants, then log the results in a structured way.
 
