@@ -5,6 +5,12 @@ Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
 
 # Arena Harness — Adversarial AI Evaluation & Benchmarking
 
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Status](https://img.shields.io/badge/status-active%20research-orange)
+![Taxonomy](https://img.shields.io/badge/threat%20taxonomy-D1%20(14%20categories)-red)
+![Methodology](https://img.shields.io/badge/methodology-CARDO--REI-blueviolet)
+![Language](https://img.shields.io/badge/language-Python-informational)
+
 **Aaron Marchant** · [prompthound.ai@gmail.com](mailto:prompthound.ai@gmail.com) · [@PromptHound96](https://twitter.com/PromptHound96)
 
 > **Validation note:** GitHub Actions is currently paused on this account (billing hold), so the CI badge is intentionally omitted rather than left red. The three workflow checks — repo structure, JSON config validity, and Python syntax (`py_compile`) — are reproducible locally: `test -d practice_rag/scripts && python3 -m json.tool practice_rag/configs/*.json && python3 -m py_compile practice_rag/scripts/arena_eval.py`.
