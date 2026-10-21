@@ -7,7 +7,7 @@ Reference: [CARDO REI Methodology](PROMPTHOUND-DOCS/CARDO-REI.md)
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Status](https://img.shields.io/badge/status-active%20research-orange)
-![Taxonomy](https://img.shields.io/badge/threat%20taxonomy-D1%20(14%20categories)-red)
+![Taxonomy](https://img.shields.io/badge/threat%20taxonomy-D1%20(16%20categories)-red)
 ![Methodology](https://img.shields.io/badge/methodology-CARDO--REI-blueviolet)
 ![Language](https://img.shields.io/badge/language-Python-informational)
 
